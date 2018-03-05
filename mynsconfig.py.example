@@ -6,10 +6,13 @@ nitroPass = "nsroot"
 connectiontype = "https"
 
 #Certificate and private key file names on Netscaler	
-nspairname = "le-certificate";
-nschainname = "le-chain";
-nscert = "le-cert.pem";
-nskey = "le-privkey.pem";
+#Uncomment nspairname, nschainname, nscert, and nskey
+#if you don't want to use domain names in files.
+#This will disallow multiple main domains.
+#nspairname = "le-certificate";
+#nschainname = "le-chain";
+#nscert = "le-cert.pem";
+#nskey = "le-privkey.pem";
 nschain = "le-chain.pem";
 nscertpath = "/nsconfig/ssl/";
 
