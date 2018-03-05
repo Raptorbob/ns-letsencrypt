@@ -55,7 +55,7 @@ deploy_cert() {
     # - TIMESTAMP
     #   Timestamp when the specified certificate was created.
 
-    /root/ns-letsencrypt/ns-copytons.py create $CERTFILE $KEYFILE $CHAINFILE
+    /root/ns-letsencrypt/ns-copytons.py create $CERTFILE $KEYFILE $CHAINFILE $DOMAIN
 
 }
 
