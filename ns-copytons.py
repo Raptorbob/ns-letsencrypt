@@ -11,6 +11,8 @@ __author__ = "Ryan Butler (techdrabble.com)"
 __license__ = "GPL"
 __version__ = "1.0.0"
 __maintainer__ = "Ryan Butler"
+__edited by__ = "Philip Cruz"
+__date edited__ = "3/5/2018"
 
 #what to perform
 whattodo = sys.argv[1]
@@ -155,6 +157,9 @@ def linkSSL(connectiontype,nitroNSIP,authToken, nschainname, nspairname):
 authToken = getAuthCookie(connectiontype,nitroNSIP,nitroUser,nitroPass)
 if whattodo == "save":
    localcert = sys.argv[2]
+   domain = sys.argv[3]
+   nscert = "le-"+domain+"-cert.pem"
+   nspairname = "le-"+domain+"-pair"
    print "Updating Netscaler Certificate"
    removeFile(connectiontype,nitroNSIP,authToken,nscert,nscertpath)
    sendFile(connectiontype,nitroNSIP,authToken,nscert,localcert,nscertpath)
@@ -172,6 +177,12 @@ elif whattodo == "create":
    localcert = sys.argv[2]
    localkey = sys.argv[3]
    localchain = sys.argv[4]
+   domain = sys.argv[5]
+   nscert = "le-"+domain+"-cert.pem"
+   nskey = "le-"+domain+"-key.pem"
+   nschain = "le-"+domain+"-chain.pem"
+   nspairname = "le-"+domain+"-pair"
+   nschainname = "le-chain"
    print "Create Netscaler Certificate"
    sendFile(connectiontype,nitroNSIP,authToken,nscert,localcert,nscertpath)
    sendFile(connectiontype,nitroNSIP,authToken,nskey,localkey,nscertpath)
