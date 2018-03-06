@@ -181,7 +181,7 @@ elif whattodo == "create":
    nscert = "le-"+domain+"-cert.pem"
    nskey = "le-"+domain+"-key.pem"
    nschain = "le-"+domain+"-chain.pem"
-   nspairname = "le-"+domain+"-pair"
+   nspairname = "le-"+domain[:23]+"-pair"
    nschainname = "le-chain"
    print "Create Netscaler Certificate"
    sendFile(connectiontype,nitroNSIP,authToken,nscert,localcert,nscertpath)
