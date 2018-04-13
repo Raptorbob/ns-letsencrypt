@@ -159,7 +159,7 @@ if whattodo == "save":
    localcert = sys.argv[2]
    domain = sys.argv[3]
    nscert = "le-"+domain+"-cert.pem"
-   nspairname = "le-"+domain+"-pair"
+   nspairname = "le-"+domain[:23]+"-pair"
    print "Updating Netscaler Certificate"
    removeFile(connectiontype,nitroNSIP,authToken,nscert,nscertpath)
    sendFile(connectiontype,nitroNSIP,authToken,nscert,localcert,nscertpath)
