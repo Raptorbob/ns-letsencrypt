@@ -80,13 +80,14 @@ def EditrespPol(connectiontype,nitroNSIP,authToken,nsresppol,token_filename):
    url = '%s://%s/nitro/v1/config/responderpolicy' % (connectiontype, nitroNSIP)
    headers = {'Content-type': 'application/json','Cookie': authToken}
    buildrule = 'HTTP.REQ.URL.CONTAINS(\"well-known/acme-challenge/%s\")' % token_filename
+   print buildrule
    json_string = {
    "responderpolicy": {
        "name": nsresppol,
        "rule": buildrule,}
    }
    payload = json.dumps(json_string)
-   response = requests.post(url, data=payload, headers=headers, verify=False)
+   response = requests.put(url, data=payload, headers=headers, verify=False)
    print "EDIT RESPONDER POLICY: %s" % response.reason
 
 def EditrespAct(connectiontype,nitroNSIP,authToken,nsrespact,token_value):
@@ -171,10 +172,10 @@ if whattodo == "save":
    localkey = sys.argv[3]
    localchain = sys.argv[4]
    domain = sys.argv[5]
-   m = re.search('(.+?)(?=\.)', domain)
-   nspairname = '%s-%s' % (nspairname, m.group(0))
-   nscert = '%s-%s.pem' % (nscert, domain)
-   nskey = '%s-%s.pem' % (nskey, domain)
+   m = re.search('(.+?)(?=\.)', domain[:23])
+   nspairname = '%s-%s-pair' % (nspairname, m.group(0))
+   nscert = '%s-%s-cert.pem' % (nscert, domain)
+   nskey = '%s-%s-key.pem' % (nskey, domain)
    existcode = GetSSL(connectiontype,nitroNSIP,authToken, nspairname)
    if existcode == 200:
        print "Using existing cert"
@@ -204,8 +205,8 @@ elif whattodo == "challenge":
    polname = '%s-%s' % (nsresppol, challenge_domain)
    actname = '%s-%s' % (nsrespact, challenge_domain)
    print "Creating Challenge Policy for %s" % challenge_domain
-   EditrespAct(connectiontype,nitroNSIP,authToken,nsrespact,token_value)
    EditrespPol(connectiontype,nitroNSIP,authToken,nsresppol,token_filename)
+   EditrespAct(connectiontype,nitroNSIP,authToken,nsrespact,token_value)
 elif whattodo == "saveconfig":
     print "Saving Netscaler Configuration"
     SaveNSConfig(connectiontype,nitroNSIP,authToken)
